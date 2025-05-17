@@ -4,7 +4,7 @@ import BuyCredit from "./pages/Buycredit"
 import Home from "./pages/Home"
 import Result from "./pages/Result"
 import Navbar from './Components/Navbar'
-import Footer from './Components/footer'
+import Footer from './Components/Footer'
 import Login from './Components/Login'
 import { useContext } from 'react'
 import { AppContext } from './context/AppContext'
