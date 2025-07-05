@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom'
 import BuyCredit from "./pages/Buycredit"
 import Home from "./pages/Home"
 import Result from "./pages/Result"
-import Navbar from './components/Navbar'
+import Navbar from './Components/Navbar'
 import Login from "./Components/Login"
 import Footer from './Components/Footer'
 import { useContext } from 'react'
