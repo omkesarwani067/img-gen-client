@@ -3,9 +3,9 @@ import { Routes, Route } from 'react-router-dom'
 import BuyCredit from "./pages/Buycredit"
 import Home from "./pages/Home"
 import Result from "./pages/Result"
-import Navbar from './Components/Navbar'
-import Login from "./Components/Login"
-import Footer from "./Components/Footer"
+import Navbar from "./components/Navbar"
+import Footer from "./components/Footer"
+import Login from "./components/Login"
 
 import { useContext } from 'react'
 import { AppContext } from './context/AppContext'
