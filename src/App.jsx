@@ -3,9 +3,9 @@ import { Routes, Route } from 'react-router-dom'
 import BuyCredit from "./pages/Buycredit"
 import Home from "./pages/Home"
 import Result from "./pages/Result"
-import Navbar from './Components/Navbar'
-import Footer from './Components/Footer'
-import Login from './Components/Login'
+import Navbar from './components/Navbar'
+import Footer from './components/Footer'
+import Login from './components/Login'
 import { useContext } from 'react'
 import { AppContext } from './context/AppContext'
 import { ToastContainer } from 'react-toastify';
@@ -28,8 +28,8 @@ const App = () => {
         <Route path='/result' element={<Result/>} />
         <Route path='/buy' element={<BuyCredit/>} />
       </Routes>
-      <Footer/>
-
+      
+      <Footer />
     </div>
   )
 }

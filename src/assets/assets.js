@@ -20,6 +20,7 @@ import credit_star from './credit_star.svg'
 import profile_icon from './profile_icon.png'
 import logo_new from './logo_new.svg'
 
+
 export const assets = {
     logo,
     logo_new,

@@ -1,9 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit&display=swap');
 @import "tailwindcss";
-*{
-    font-family: Outfit;
+
+/* Apply fonts globally */
+* {
+  font-family:'Outfit', sans-serif;
 }
-.placeholder-color{
-    color:#e0e0e0;
-    font-weight:300
+
+/* Placeholder text style for elements with this class */
+.placeholder-color::placeholder {
+  color: #e0e0e0;
+  font-weight: 300;
 }

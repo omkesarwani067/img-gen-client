@@ -1,9 +1,9 @@
 import React from "react"
-import Description from "../Components/Description"
-import GenerateBtn from "../Components/GenerateBtn"
-import Header from "../Components/Header"
-import Steps from "../Components/Steps"
-import Testimonials from "../Components/Testimonials"
+import Description from "../components/Description"
+import GenerateBtn from "../components/GenerateBtn"
+import Header from "../components/Header"
+import Steps from "../components/Steps"
+import Testimonials from "../components/Testimonials"
 
 const Home = () => {
   return (
