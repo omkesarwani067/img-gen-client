@@ -5,7 +5,7 @@ import Home from "./pages/Home"
 import Result from "./pages/Result"
 import Navbar from './Components/Navbar'
 import Login from "./Components/Login"
-import Footer from './Components/Footer'
+import Footer from "./Components/Footer"
 import { useContext } from 'react'
 import { AppContext } from './context/AppContext'
 import { ToastContainer } from 'react-toastify';
@@ -28,7 +28,6 @@ const App = () => {
         <Route path='/result' element={<Result/>} />
         <Route path='/buy' element={<BuyCredit/>} />
       </Routes>
-      
       <Footer />
     </div>
   )
