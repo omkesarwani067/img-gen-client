@@ -21,6 +21,7 @@ const App = () => {
     <div className='px-4 sm:px-10 md:px-14 lg:px-28 min-h-screen bg-gradient-to-b from-red-200 to-purple-300'>
       <ToastContainer position='bottom-right'/>
       <Navbar />
+      <Footer />
       
       {showLogin && <Login/>}
       <Routes>
@@ -28,7 +29,6 @@ const App = () => {
         <Route path='/result' element={<Result/>} />
         <Route path='/buy' element={<BuyCredit/>} />
       </Routes>
-      <Footer />
     </div>
   )
 }
