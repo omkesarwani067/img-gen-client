@@ -15,7 +15,12 @@ const BuyCredit = () => {
     script.src = "https://checkout.razorpay.com/v1/checkout.js";
     script.async = true;
     document.body.appendChild(script);
-    return () => document.body.removeChild(script);
+    return () => {
+      // ✅ FIXED: Check if script exists before removing
+      if (document.body.contains(script)) {
+        document.body.removeChild(script);
+      }
+    };
   }, []);
 
   const handleRazorpaySuccess = async (response) => {
@@ -36,7 +41,14 @@ const BuyCredit = () => {
     }
   };
 
+  // ✅ FIXED: Add Razorpay loading check
   const initPayment = async (order) => {
+    // Check if Razorpay is loaded
+    if (!window.Razorpay) {
+      toast.error("Payment system loading. Please try again in a moment.");
+      return;
+    }
+
     const options = {
       key: import.meta.env.VITE_RAZORPAY_KEY_ID,
       amount: order.amount,
@@ -45,6 +57,13 @@ const BuyCredit = () => {
       description: "Purchase credits",
       order_id: order.id,
       handler: handleRazorpaySuccess,
+      prefill: {
+        name: user?.name || "",
+        email: user?.email || "",
+      },
+      theme: {
+        color: "#3399cc"
+      }
     };
 
     const rzp = new window.Razorpay(options);
@@ -73,6 +92,7 @@ const BuyCredit = () => {
     }
   };
 
+  // ✅ Rest of component unchanged - JSX remains the same
   return (
     <motion.div
       initial={{ opacity: 0.2, y: 100 }}

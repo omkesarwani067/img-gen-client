@@ -7,12 +7,13 @@ import { toast } from "react-toastify";
 
 const Login = () => {
   const [state, setState] = useState('Login');
-  const { setShowLogin, backendUrl, setToken, setUser, loadCreditsData } = useContext(AppContext);
+  const { setShowLogin, backendUrl, setToken, setUser } = useContext(AppContext);
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  // ✅ FIXED: Remove loadCreditsData call - let useEffect handle it
   const onSubmitHandler = async (e) => {
     e.preventDefault();
 
@@ -23,10 +24,10 @@ const Login = () => {
         if (data.success) {
           setToken(data.token);
           localStorage.setItem('token', data.token);
-          await loadCreditsData(); // ✅ Immediately load user and credits
-          setUser(data.user);
+          setUser(data.user); // ✅ Set user immediately from login response
           setShowLogin(false);
           toast.success("Logged in successfully!");
+          // ✅ REMOVED: await loadCreditsData(); - This was causing conflicts
         } else {
           toast.error(data.message);
         }
@@ -36,10 +37,10 @@ const Login = () => {
         if (data.success) {
           setToken(data.token);
           localStorage.setItem('token', data.token);
-          await loadCreditsData(); // ✅ Immediately load user and credits
-          setUser(data.user);
+          setUser(data.user); // ✅ Set user immediately from register response
           setShowLogin(false);
           toast.success("Account created successfully!");
+          // ✅ REMOVED: await loadCreditsData(); - This was causing conflicts
         } else {
           toast.error(data.message);
         }
@@ -49,7 +50,7 @@ const Login = () => {
     }
   };
 
-  // Disable scrolling when login is open
+  // Disable scrolling when login is open (unchanged)
   useEffect(() => {
     document.body.style.overflow = 'hidden';
     return () => {
@@ -57,6 +58,7 @@ const Login = () => {
     };
   }, []);
 
+  // ✅ Rest of component unchanged - JSX remains the same
   return (
     <div className="fixed top-0 left-0 right-0 bottom-0 z-10 backdrop-blur-sm bg-black/30 flex justify-center items-center">
       <motion.form

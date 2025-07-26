@@ -14,8 +14,10 @@ const AppContextProvider = ({ children }) => {
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const navigate = useNavigate();
 
-  // ✅ Load credits and user profile
+  // ✅ FIXED: Load credits and user profile
   const loadCreditsData = async () => {
+    if (!token || token === "") return;
+    
     try {
       const { data } = await axios.get(`${backendUrl}/api/user/credits`, {
         headers: {
@@ -28,16 +30,17 @@ const AppContextProvider = ({ children }) => {
         setCredit(data.credits);
       }
     } catch (error) {
-      if (error.response?.status === 401) {
+      console.log('Credits load error:', error);
+      // ✅ FIXED: Only logout if user exists and it's a real auth error
+      if (error.response?.status === 401 && user) {
         logout();
-        toast.error("Session expired or unauthorized. Please login.");
-      } else {
-        toast.error("Failed to load user data.");
+        toast.error("Session expired. Please login again.");
       }
+      // Don't show error toast on initial loads to prevent spam
     }
   };
 
-  // ✅ Generate image
+  // ✅ Generate image (unchanged - working fine)
   const generateImage = async (prompt) => {
     try {
       const { data } = await axios.post(
@@ -65,7 +68,7 @@ const AppContextProvider = ({ children }) => {
     }
   };
 
-  // ✅ Logout
+  // ✅ Logout (unchanged - working fine)
   const logout = () => {
     localStorage.removeItem("token");
     setToken("");
@@ -75,19 +78,12 @@ const AppContextProvider = ({ children }) => {
     toast.success("Logged out successfully.");
   };
 
-  // ✅ Load credit only once on initial app load
+  // ✅ FIXED: Load credits when token changes
   useEffect(() => {
-    const savedToken = localStorage.getItem("token");
-
-    if (savedToken && !user) {
-      setToken(savedToken);
-
-      // Delay to ensure setToken completes before loadCreditsData runs
-      setTimeout(() => {
-        loadCreditsData();
-      }, 0);
+    if (token && token !== "" && !user) {
+      loadCreditsData();
     }
-  }, []);
+  }, [token]); // Added token as dependency
 
   return (
     <AppContext.Provider
