@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 
 const Login = () => {
   const [state, setState] = useState('Login');
-  const { setShowLogin, backendUrl, setToken, setUser } = useContext(AppContext);
+  const { setShowLogin, backendUrl, setToken, setUser, setCredit } = useContext(AppContext);
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -25,9 +25,9 @@ const Login = () => {
           setToken(data.token);
           localStorage.setItem('token', data.token);
           setUser(data.user); // ✅ Set user immediately from login response
+          setCredit(data.user.creditBalance); // ✅ Set credits immediately from user data
           setShowLogin(false);
           toast.success("Logged in successfully!");
-          // ✅ REMOVED: await loadCreditsData(); - This was causing conflicts
         } else {
           toast.error(data.message);
         }
@@ -38,9 +38,9 @@ const Login = () => {
           setToken(data.token);
           localStorage.setItem('token', data.token);
           setUser(data.user); // ✅ Set user immediately from register response
+          setCredit(data.user.creditBalance); // ✅ Set credits immediately from user data
           setShowLogin(false);
           toast.success("Account created successfully!");
-          // ✅ REMOVED: await loadCreditsData(); - This was causing conflicts
         } else {
           toast.error(data.message);
         }

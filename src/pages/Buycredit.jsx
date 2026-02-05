@@ -25,6 +25,7 @@ const BuyCredit = () => {
 
   const handleRazorpaySuccess = async (response) => {
     try {
+      // FIXED: Correct endpoint name
       const { data } = await axios.post(`${backendUrl}/api/user/verify-razor`, response, {
         headers: { Authorization: `Bearer ${token}` }
       });
@@ -34,15 +35,16 @@ const BuyCredit = () => {
         toast.success("Credits added successfully!");
         navigate("/");
       } else {
-        toast.error("Verification failed. Try again.");
+        toast.error(data.message || "Verification failed. Try again.");
       }
     } catch (error) {
+      console.error('Verification error:', error);
       toast.error("Payment verification failed.");
     }
   };
 
-  // ✅ FIXED: Add Razorpay loading check
-  const initPayment = async (order) => {
+  // ✅ FIXED: Add Razorpay loading check and use key from server
+  const initPayment = async (order, key) => {
     // Check if Razorpay is loaded
     if (!window.Razorpay) {
       toast.error("Payment system loading. Please try again in a moment.");
@@ -50,7 +52,7 @@ const BuyCredit = () => {
     }
 
     const options = {
-      key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+      key: key || import.meta.env.VITE_RAZORPAY_KEY_ID,
       amount: order.amount,
       currency: order.currency,
       name: "Credit Purchase",
@@ -58,16 +60,25 @@ const BuyCredit = () => {
       order_id: order.id,
       handler: handleRazorpaySuccess,
       prefill: {
-        name: user?.name || "",
-        email: user?.email || "",
+        name: user?.name || "User",
+        email: user?.email || "user@example.com",
+        contact: ""
       },
       theme: {
         color: "#3399cc"
       }
     };
 
-    const rzp = new window.Razorpay(options);
-    rzp.open();
+    try {
+      const rzp = new window.Razorpay(options);
+      rzp.on('payment.failed', function (response) {
+        toast.error("Payment Failed: " + response.error.description);
+      });
+      rzp.open();
+    } catch (e) {
+      console.error("Razorpay open error:", e);
+      toast.error("Failed to open payment window.");
+    }
   };
 
   const paymentrazor_pay = async (planId) => {
@@ -82,17 +93,17 @@ const BuyCredit = () => {
       });
 
       if (data.success) {
-        initPayment(data.order);
+        // Pass key from server response
+        initPayment(data.order, data.key);
       } else {
-        toast.error("Failed to create Razorpay order.");
+        toast.error(data.message || "Failed to create Razorpay order.");
       }
     } catch (error) {
-      console.error(error);
+      console.error('Payment error:', error);
       toast.error("Payment error. Please try again.");
     }
   };
 
-  // ✅ Rest of component unchanged - JSX remains the same
   return (
     <motion.div
       initial={{ opacity: 0.2, y: 100 }}

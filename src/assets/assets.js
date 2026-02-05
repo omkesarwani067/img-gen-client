@@ -60,25 +60,25 @@ export const stepsData = [
 
 export const testimonialsData = [
     {
-        image:profile_img_1,
-        name:'Donald Jackman',
-        role:'Graphic Designer',
-        stars:5,
-        text:`I've been using bg.removal for nearly two years, primarily for Instagram, and it has been incredibly user-friendly, making my work much easier.`
+        image: profile_img_1,
+        name: 'Devanshu Singh',
+        role: 'Graphic Designer',
+        stars: 5,
+        text: `Khawab has completely changed how I visualize ideas. I just describe my concept, and the AI turns it into stunning images within seconds.`
     },
     {
-        image:profile_img_2,
-        name:'Richard Nelson',
-        role:'Content Creator',
-        stars:4,
-        text:`I've been using bg.removal for nearly two years, primarily for Instagram, and it has been incredibly user-friendly, making my work much easier.`
+        image: profile_img_2,
+        name: 'Neha Raghav',
+        role: 'Content Creator',
+        stars: 4,
+        text: `As a content creator, Khawab helps me generate unique visuals from simple prompts. It’s fast, creative, and perfect for social media content.`
     },
     {
-        image:profile_img_1,
-        name:'Donald Jackman',
-        role:' Graphic Designer',
-        stars:5,
-        text:`I've been using bg.removal for nearly two years, primarily for Instagram, and it has been incredibly user-friendly, making my work much easier.`
+        image: profile_img_1,
+        name: 'Abhi Rishiwal',
+        role: 'Video Editor',
+        stars: 5,
+        text: `From rough ideas to polished visuals, Khawab makes the creative process effortless. The image quality and prompt accuracy are impressive.`
     },
 ]
 
