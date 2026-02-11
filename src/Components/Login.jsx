@@ -112,9 +112,13 @@ const Login = () => {
 
         <p className="text-sm text-blue-600 my-4 cursor-pointer">Forgot password?</p>
 
-        <button className="bg-blue-600 w-full text-white py-2 rounded-full">
+        <motion.button
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.95 }}
+          className="bg-blue-600 w-full text-white py-2 rounded-full cursor-pointer"
+        >
           {state === 'Login' ? 'Login' : 'Create Account'}
-        </button>
+        </motion.button>
 
         {state === 'Login' ? (
           <p className="mt-5 text-center">
